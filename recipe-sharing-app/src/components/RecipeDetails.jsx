@@ -1,0 +1,25 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import useRecipeStore from '../store/useRecipeStore';
+
+const RecipeDetails = () => {
+  const { name } = useParams();
+  const recipe = useRecipeStore(state => state.recipes.find(r => r.name === name));
+
+  if (!recipe) {
+    return <div>Recipe not found</div>;
+  }
+
+  return (
+    <div>
+      <h1>{recipe.name}</h1>
+      <ul>
+        {recipe.ingredients.map((ingredient, index) => (
+          <li key={index}>{ingredient}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default RecipeDetails;
