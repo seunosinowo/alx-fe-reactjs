@@ -16,7 +16,8 @@ const EditRecipeForm = ({ recipeId }) => {
     updateRecipe({ id: recipeId, title, description });
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.preventDefault();
     deleteRecipe(recipeId);
   };
 
