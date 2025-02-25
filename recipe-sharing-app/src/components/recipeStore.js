@@ -11,7 +11,7 @@ const useRecipeStore = create(set => ({
             recipe.name === updatedRecipe.name ? updatedRecipe : recipe
         )
     })),
-    setRecipe: (recipes) => set({recipes})
+    setRecipes: (recipes) => set({recipes})
 }));
 
 export default useRecipeStore;
