@@ -12,7 +12,7 @@ const RecipeDetails = () => {
 
   return (
     <div>
-      <h1>{recipe.name}</h1>
+      <h1>{recipe.id}</h1>
       <ul>
         {recipe.ingredients.map((ingredient, index) => (
           <li key={index}>{ingredient}</li>
