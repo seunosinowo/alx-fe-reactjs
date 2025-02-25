@@ -1,5 +1,5 @@
 import React from 'react';
-import useRecipeStore from '../store/useRecipeStore';
+import useRecipeStore from './recipeStore';
 
 const DeleteRecipeButton = ({ recipeId }) => {
   const recipe = useRecipeStore(state =>
@@ -7,8 +7,8 @@ const DeleteRecipeButton = ({ recipeId }) => {
   );
   const deleteRecipe = useRecipeStore(state => state.deleteRecipe);
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (event) => { 
+    event.preventDefault();
     deleteRecipe(recipeId);
   };
 
