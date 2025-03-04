@@ -5,19 +5,20 @@ const TodoList = () => {
   const [newTodo, setNewTodo] = useState('');
 
   const addTodo = () => {
-    setTodos([...todos, { text: newTodo, completed: false }]);
-    setNewTodo('');
+    if (newTodo.trim()) {
+      setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
+      setNewTodo('');
+    }
   };
 
-  const toggleTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos[index].completed = !newTodos[index].completed;
-    setTodos(newTodos);
+  const toggleTodo = (id) => {
+    setTodos(todos.map(todo => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
   };
 
-  const deleteTodo = (index) => {
-    const newTodos = todos.filter((_, i) => i !== index);
-    setTodos(newTodos);
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
@@ -27,17 +28,14 @@ const TodoList = () => {
         type="text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
+        placeholder="Add a new todo"
       />
       <button onClick={addTodo}>Add Todo</button>
       <ul>
-        {todos.map((todo, index) => (
-          <li
-            key={index}
-            onClick={() => toggleTodo(index)}
-            className={todo.completed ? 'completed' : ''}
-          >
+        {todos.map(todo => (
+          <li key={todo.id} onClick={() => toggleTodo(todo.id)} className={todo.completed ? 'completed' : ''}>
             {todo.text}
-            <button onClick={() => deleteTodo(index)}>Delete</button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>

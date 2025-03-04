@@ -3,12 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import TodoList from '../components/TodoList';
 
-const initialTodos = [
-  { id: 1, text: 'Learn React', completed: false },
-  { id: 2, text: 'Learn Testing', completed: false },
-  { id: 3, text: 'Build a Todo App', completed: true },
-];
-
 test('renders TodoList component', () => {
   render(<TodoList />);
   expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
@@ -16,8 +10,8 @@ test('renders TodoList component', () => {
 
 test('adds a new todo item', () => {
   render(<TodoList />);
-  const input = screen.getByRole('textbox');
-  const button = screen.getByRole('button', { name: /Add Todo/i });
+  const input = screen.getByPlaceholderText('Add a new todo');
+  const button = screen.getByText('Add Todo');
 
   fireEvent.change(input, { target: { value: 'New Todo' } });
   fireEvent.click(button);
@@ -27,8 +21,8 @@ test('adds a new todo item', () => {
 
 test('toggles a todo item', () => {
   render(<TodoList />);
-  const input = screen.getByRole('textbox');
-  const button = screen.getByRole('button', { name: /Add Todo/i });
+  const input = screen.getByPlaceholderText('Add a new todo');
+  const button = screen.getByText('Add Todo');
 
   fireEvent.change(input, { target: { value: 'New Todo' } });
   fireEvent.click(button);
@@ -41,13 +35,13 @@ test('toggles a todo item', () => {
 
 test('deletes a todo item', () => {
   render(<TodoList />);
-  const input = screen.getByRole('textbox');
-  const button = screen.getByRole('button', { name: /Add Todo/i });
+  const input = screen.getByPlaceholderText('Add a new todo');
+  const button = screen.getByText('Add Todo');
 
   fireEvent.change(input, { target: { value: 'New Todo' } });
   fireEvent.click(button);
 
-  const deleteButton = screen.getByRole('button', { name: /Delete/i });
+  const deleteButton = screen.getByText('Delete');
   fireEvent.click(deleteButton);
 
   expect(screen.queryByText(/New Todo/i)).not.toBeInTheDocument();
