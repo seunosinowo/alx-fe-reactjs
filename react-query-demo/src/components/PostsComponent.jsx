@@ -1,4 +1,3 @@
-// filepath: /C:/Users/HP/Desktop/alx-fe-reactjs/form-handling-react/src/components/PostsComponent.jsx
 import React from 'react';
 import { useQuery } from 'react-query';
 
