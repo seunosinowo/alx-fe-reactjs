@@ -6,13 +6,14 @@ import RecipeDetails from "./components/RecipeDetails";
 import DeleteRecipeButton from "./components/DeleteRecipeButton";
 import RecommendationsList from "./components/RecommendationsList";
 import FavoritesList from './components/FavoritesList';
+import FormikForm from './components/FormikForm'; // Added import
 
 function App() {
   return (
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<><AddRecipeForm /><RecipeList /><RecommendationsList /> <FavoritesList/></>} />
+          <Route path="/" element={<><AddRecipeForm /><RecipeList /><RecommendationsList /><FavoritesList /><FormikForm /></>} /> {/* Added FormikForm */}
           <Route path="/recipes/:id" element={<RecipeDetails />} />
           <Route path="/recipes/:id/delete" element={<DeleteRecipeButton />} />
         </Routes>
