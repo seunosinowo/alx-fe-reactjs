@@ -3,11 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const initialValues = {
-  
+  fieldName: '',
 };
 
 const validationSchema = Yup.object({
-  
+  fieldName: Yup.string().required('Field Name is required'),
 });
 
 const FormikForm = () => {
