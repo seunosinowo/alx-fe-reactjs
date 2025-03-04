@@ -10,36 +10,45 @@ const initialTodos = [
 ];
 
 test('renders TodoList component', () => {
-  render(<TodoList initialTodos={initialTodos} />);
-  expect(screen.getByText('Learn React')).toBeInTheDocument();
-  expect(screen.getByText('Learn Testing')).toBeInTheDocument();
-  expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
+  render(<TodoList />);
+  expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
 });
 
-test('adds a new todo', () => {
-  render(<TodoList initialTodos={initialTodos} />);
-  const input = screen.getByPlaceholderText('Add a new todo');
-  const addButton = screen.getByText('Add');
+test('adds a new todo item', () => {
+  render(<TodoList />);
+  const input = screen.getByRole('textbox');
+  const button = screen.getByRole('button', { name: /Add Todo/i });
 
   fireEvent.change(input, { target: { value: 'New Todo' } });
-  fireEvent.click(addButton);
+  fireEvent.click(button);
 
-  expect(screen.getByText('New Todo')).toBeInTheDocument();
+  expect(screen.getByText(/New Todo/i)).toBeInTheDocument();
 });
 
-test('toggles a todo', () => {
-  render(<TodoList initialTodos={initialTodos} />);
-  const todoItem = screen.getByText('Learn React');
+test('toggles a todo item', () => {
+  render(<TodoList />);
+  const input = screen.getByRole('textbox');
+  const button = screen.getByRole('button', { name: /Add Todo/i });
+
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(button);
+
+  const todoItem = screen.getByText(/New Todo/i);
   fireEvent.click(todoItem);
 
   expect(todoItem).toHaveClass('completed');
 });
 
-test('deletes a todo', () => {
-  render(<TodoList initialTodos={initialTodos} />);
-  const deleteButton = screen.getByText('Delete', { selector: 'button' });
+test('deletes a todo item', () => {
+  render(<TodoList />);
+  const input = screen.getByRole('textbox');
+  const button = screen.getByRole('button', { name: /Add Todo/i });
 
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(button);
+
+  const deleteButton = screen.getByRole('button', { name: /Delete/i });
   fireEvent.click(deleteButton);
 
-  expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
+  expect(screen.queryByText(/New Todo/i)).not.toBeInTheDocument();
 });

@@ -5,8 +5,19 @@ const TodoList = () => {
   const [newTodo, setNewTodo] = useState('');
 
   const addTodo = () => {
-    setTodos([...todos, newTodo]);
+    setTodos([...todos, { text: newTodo, completed: false }]);
     setNewTodo('');
+  };
+
+  const toggleTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].completed = !newTodos[index].completed;
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (index) => {
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
   };
 
   return (
@@ -20,7 +31,14 @@ const TodoList = () => {
       <button onClick={addTodo}>Add Todo</button>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li
+            key={index}
+            onClick={() => toggleTodo(index)}
+            className={todo.completed ? 'completed' : ''}
+          >
+            {todo.text}
+            <button onClick={() => deleteTodo(index)}>Delete</button>
+          </li>
         ))}
       </ul>
     </div>
