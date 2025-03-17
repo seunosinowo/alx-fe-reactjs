@@ -22,7 +22,18 @@ function RecipeDetail() {
         <div className="p-4">
           <h1 className="text-2xl font-semibold">{recipe.title}</h1>
           <p className="text-gray-600">{recipe.summary}</p>
-          
+          <h2 className="text-xl font-semibold mt-4">Ingredients</h2>
+          <ul className="list-disc list-inside">
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <h2 className="text-xl font-semibold mt-4">Instructions</h2>
+          <ol className="list-decimal list-inside">
+            {recipe.instructions.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
+            ))}
+          </ol>
         </div>
       </div>
     </div>
