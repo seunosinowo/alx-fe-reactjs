@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { fetchUserData } from '../services/api';
+import { fetchUserData, fetchUserRepos } from '../services/api';
 
 function Search() {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [repos, setRepos] = useState([]);
 
   const handleInputChange = (e) => {
     setUsername(e.target.value);
@@ -18,6 +19,8 @@ function Search() {
     try {
       const data = await fetchUserData(username);
       setUserData(data);
+      const repositories = await fetchUserRepos(username);
+      setRepos(repositories);
     } catch (err) {
       setError('Looks like we cant find the user');
     } finally {
@@ -45,6 +48,16 @@ function Search() {
           <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
             View Profile
           </a>
+          <h3>Repositories:</h3>
+          <ul>
+            {repos.map((repo) => (
+              <li key={repo.id}>
+                <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                  {repo.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
