@@ -48,6 +48,7 @@ function Search() {
           <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
             View Profile
           </a>
+          {userData.location && <p>Location: {userData.location}</p>}
           <h3>Repositories:</h3>
           <ul>
             {repos.map((repo) => (
